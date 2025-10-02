@@ -9,10 +9,14 @@ const App = () => {
     address: "BinhDinh",
     country: " Vietnam",
   };
+  const addNewTodo = (name) => {
+    alert(`name: ${name}`);
+  };
+
   return (
     <div className="todo-container">
       <div className="todo-title">Todo list</div>
-      <TodoNew />
+      <TodoNew addNewTodo={addNewTodo} />
       <TodoData name={name} age={age} data={data} />
 
       <div className="todo-img">
