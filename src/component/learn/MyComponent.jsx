@@ -1,5 +1,11 @@
+import "./style.css";
 const MyComponent = () => {
-  return <div>MyComponent</div>;
+  return (
+    <>
+      <div style={{ color: "green" }}>MyComponent</div>
+      <div className="bruyden">Bruyden</div>
+    </>
+  );
 };
 
 export default MyComponent;
