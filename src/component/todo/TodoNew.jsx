@@ -1,15 +1,23 @@
+import { useState } from "react";
+
 const TodoNew = (prpos) => {
   console.log(prpos);
   const { addNewTodo } = prpos;
+
   // addNewTodo(`bang`);
+
+  // useState hook(getter/setter)
+  // const valueInput ="name"
+  const [valueInput, setValueInput] = useState("Bruyden111");
   const handleClick = () => {
-    alert("click me");
+    alert("check valueInput", valueInput);
+    console.log("check valueInput", valueInput);
   };
   // const handleChange = (event) => {
   //   console.log("onchange", event.target.value);
   // };
   const handleChange = (name) => {
-    console.log("onchange", name);
+    setValueInput(name);
   };
   return (
     <div className="todo-new">
@@ -21,6 +29,7 @@ const TodoNew = (prpos) => {
         type="text"
       />
       <button onClick={handleClick}>ADD</button>
+      <div>My name is:{valueInput}</div>
     </div>
   );
 };

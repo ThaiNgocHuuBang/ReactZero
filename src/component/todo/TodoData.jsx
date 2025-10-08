@@ -5,6 +5,7 @@ const TodoData = (prpos) => {
     <div className="todo-data">
       <div>Learning Code</div>
       <div>Learning English 111</div>
+      <div>{JSON.stringify(prpos.todoList)}</div>
       <div>{name}</div>
       <div>{age}</div>
       <div>{data.address}</div>
