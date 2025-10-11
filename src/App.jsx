@@ -30,13 +30,25 @@ const App = () => {
     return Math.floor(Math.random() * (max - min + 1) + min);
   };
 
+  const deleteData = (id) => {
+    console.log("check id delete", id);
+    const newTodo = todoList.filter((item) => item.id !== id);
+    setTodoList(newTodo);
+  };
+
   return (
     <div className="todo-container">
       <div className="todo-title">Todo list</div>
       <TodoNew addNewTodo={addNewTodo} />
 
       {todoList.length > 0 ? (
-        <TodoData name={name} age={age} data={data} todoList={todoList} />
+        <TodoData
+          name={name}
+          age={age}
+          data={data}
+          todoList={todoList}
+          deleteData={deleteData}
+        />
       ) : (
         <div className="todo-img">
           <img src={todoLogo} alt="" />

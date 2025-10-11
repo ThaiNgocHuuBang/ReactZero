@@ -1,7 +1,11 @@
 const TodoData = (prpos) => {
   // const { name, age, data } = prpos;
-  const { todoList } = prpos;
+  const { todoList, deleteData } = prpos;
   console.log("check todolist", todoList);
+
+  const handleClick = (id) => {
+    deleteData(id);
+  };
   return (
     <div className="todo-data">
       {/* <div>Learning Code</div>
@@ -11,7 +15,7 @@ const TodoData = (prpos) => {
         return (
           <div className="totoItem" key={item.id}>
             <div>{item.name}</div>
-            <button>Delete</button>
+            <button onClick={() => handleClick(item.id)}>Delete</button>
           </div>
         );
       })}
