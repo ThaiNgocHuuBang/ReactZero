@@ -10,8 +10,9 @@ const TodoNew = (prpos) => {
   // const valueInput ="name"
   const [valueInput, setValueInput] = useState("Bruyden111");
   const handleClick = () => {
-    alert("check valueInput", valueInput);
-    console.log("check valueInput", valueInput);
+    // alert("check valueInput", valueInput);
+    // console.log("check valueInput", valueInput);
+    addNewTodo(valueInput);
   };
   // const handleChange = (event) => {
   //   console.log("onchange", event.target.value);
