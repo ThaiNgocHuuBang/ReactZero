@@ -32,7 +32,7 @@ const TodoNew = (prpos) => {
         value={valueInput}
       />
       <button onClick={handleClick}>ADD</button>
-      <div>My name is:{valueInput}</div>
+      {/* <div>My name is:{valueInput}</div> */}
     </div>
   );
 };

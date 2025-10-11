@@ -9,13 +9,14 @@ const TodoData = (prpos) => {
       {todoList.map((item, index) => {
         console.log("check", item, index);
         return (
-          <div className="totoItem">
+          <div className="totoItem" key={item.id}>
             <div>{item.name}</div>
             <button>Delete</button>
           </div>
         );
       })}
-      <div>{JSON.stringify(prpos.todoList)}</div>
+      {/* <div>{JSON.stringify(prpos.todoList)}</div> */}
+
       {/* <div>{name}</div>
       <div>{age}</div>
       <div>{data.address}</div> */}
