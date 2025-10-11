@@ -8,11 +8,12 @@ const TodoNew = (prpos) => {
 
   // useState hook(getter/setter)
   // const valueInput ="name"
-  const [valueInput, setValueInput] = useState("Bruyden111");
+  const [valueInput, setValueInput] = useState("Todo");
   const handleClick = () => {
     // alert("check valueInput", valueInput);
     // console.log("check valueInput", valueInput);
     addNewTodo(valueInput);
+    setValueInput("");
   };
   // const handleChange = (event) => {
   //   console.log("onchange", event.target.value);
@@ -28,6 +29,7 @@ const TodoNew = (prpos) => {
         }}
         placeholder="Enter your task"
         type="text"
+        value={valueInput}
       />
       <button onClick={handleClick}>ADD</button>
       <div>My name is:{valueInput}</div>

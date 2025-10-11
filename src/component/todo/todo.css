@@ -37,3 +37,9 @@
   height: auto;
   margin-top: 20px;
 }
+.totoItem {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+}

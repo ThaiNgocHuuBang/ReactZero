@@ -5,8 +5,8 @@ import todoLogo from "./assets/react.svg";
 import { use, useState } from "react";
 const App = () => {
   const [todoList, setTodoList] = useState([
-    { id: 1, name: "bang" },
-    { id: 2, name: "bang2" },
+    { id: 1, name: "Watching TV" },
+    { id: 2, name: "Play game" },
   ]);
 
   const name = "Bang";
