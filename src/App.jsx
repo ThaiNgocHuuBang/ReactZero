@@ -5,6 +5,7 @@ import todoLogo from "./assets/react.svg";
 import { use, useState } from "react";
 import Header from "./component/layout/header";
 import Footer from "./component/layout/footer";
+import { Outlet } from "react-router-dom";
 const App = () => {
   const [todoList, setTodoList] = useState([
     // { id: 1, name: "Watching TV" },
@@ -59,6 +60,7 @@ const App = () => {
           </div>
         )}
       </div>
+      <Outlet />
       <Footer />
     </>
   );
