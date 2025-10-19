@@ -15,9 +15,12 @@ const UseForm = () => {
         message: "Create user successfully",
         description: "Tao user thanh cong",
       });
+    } else {
+      notification.error({
+        message: "Create user failed",
+        description: JSON.stringify(res.message),
+      });
     }
-
-    console.log("res", res.data.data);
   };
 
   return (
