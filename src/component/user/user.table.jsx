@@ -28,9 +28,7 @@ const UserTable = () => {
     },
   ];
 
-  const [dataUsers, setDataUsers] = useState([
-    { _id: 1, fullName: "Nguyen Van A", email: "aaaa@gmail.com" },
-  ]);
+  const [dataUsers, setDataUsers] = useState([]);
   useEffect(() => {
     console.log("component did mount 1111");
     loadUser();

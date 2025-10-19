@@ -3,9 +3,6 @@ import UserForm from "../component/user/user.form";
 const UsersPage = () => {
   return (
     <div>
-      user page
-      <hr />
-      <br />
       <UserForm />
       <UserTable />
     </div>
