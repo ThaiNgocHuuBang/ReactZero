@@ -1,42 +1,20 @@
 import { Space, Table, Tag } from "antd";
+import { fetchALLUserAPI } from "../../services/api.service";
+import { useEffect, useState } from "react";
 
 const UserTable = () => {
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      render: (text) => <a>{text}</a>,
+      title: "ID",
+      dataIndex: "_id",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Full Name",
+      dataIndex: "fullName",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-    },
-    {
-      title: "Tags",
-      key: "tags",
-      dataIndex: "tags",
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? "geekblue" : "green";
-            if (tag === "loser") {
-              color = "volcano";
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
+      title: "email",
+      dataIndex: "email",
     },
     {
       title: "Action",
@@ -49,29 +27,21 @@ const UserTable = () => {
       ),
     },
   ];
-  const data = [
-    {
-      key: "1",
-      name: "John Brown",
-      age: 32,
-      address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
-    },
-    {
-      key: "2",
-      name: "Jim Green",
-      age: 42,
-      address: "London No. 1 Lake Park",
-      tags: ["loser"],
-    },
-    {
-      key: "3",
-      name: "Joe Black",
-      age: 32,
-      address: "Sydney No. 1 Lake Park",
-      tags: ["cool", "teacher"],
-    },
-  ];
-  return <Table columns={columns} dataSource={data} />;
+
+  const [dataUsers, setDataUsers] = useState([
+    { _id: 1, fullName: "Nguyen Van A", email: "aaaa@gmail.com" },
+  ]);
+  useEffect(() => {
+    console.log("component did mount 1111");
+    loadUser();
+  }, []);
+
+  const loadUser = async () => {
+    const res = await fetchALLUserAPI();
+    setDataUsers(res.data);
+  };
+
+  console.log("render user table 000");
+  return <Table columns={columns} dataSource={dataUsers} rowKey={"_id"} />;
 };
 export default UserTable;
