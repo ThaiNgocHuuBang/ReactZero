@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 const UsersPage = () => {
   const [dataUsers, setDataUsers] = useState([]);
   useEffect(() => {
-    console.log("component did mount 1111");
     loadUser();
   }, []);
 
