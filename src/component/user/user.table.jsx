@@ -1,8 +1,7 @@
 import { Space, Table, Tag } from "antd";
-import { fetchALLUserAPI } from "../../services/api.service";
-import { useEffect, useState } from "react";
 
-const UserTable = () => {
+const UserTable = (props) => {
+  const { dataUsers } = props;
   const columns = [
     {
       title: "ID",
@@ -27,17 +26,6 @@ const UserTable = () => {
       ),
     },
   ];
-
-  const [dataUsers, setDataUsers] = useState([]);
-  useEffect(() => {
-    console.log("component did mount 1111");
-    loadUser();
-  }, []);
-
-  const loadUser = async () => {
-    const res = await fetchALLUserAPI();
-    setDataUsers(res.data);
-  };
 
   console.log("render user table 000");
   return <Table columns={columns} dataSource={dataUsers} rowKey={"_id"} />;
