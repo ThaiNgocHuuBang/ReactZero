@@ -8,6 +8,7 @@ const ViewUserDetail = (props) => {
   return (
     <>
       <Drawer
+        width={"25vw"}
         title="Basic Drawer"
         closable={{ "aria-label": "Close Button" }}
         onClose={() => {
@@ -31,6 +32,30 @@ const ViewUserDetail = (props) => {
         <div style={{ display: "flex" }}>
           <h4 style={{ marginRight: 30 }}>Phone:</h4>
           <p>{dataDetail.phone}</p>
+        </div>
+        <div style={{ display: "flex" }}>
+          <h4 style={{ marginRight: 30 }}>Avatar:</h4>
+          <img
+            style={{ width: 200, height: 200 }}
+            src={`${import.meta.env.VITE_BACKEND_URL}/images/avatar/${
+              dataDetail.avatar
+            }`}
+            alt=""
+          />
+        </div>
+        <div style={{ marginTop: 20 }}>
+          <label
+            htmlFor="btnUpload"
+            style={{
+              padding: 10,
+              background: "green",
+              borderRadius: 5,
+              cursor: "pointer",
+            }}
+          >
+            Upload Avatar
+          </label>
+          <input type="file" hidden id="btnUpload" />
         </div>
       </Drawer>
     </>
