@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Input, notification, Modal } from "antd";
-import { createUserAPI, updateUserAPI } from "../../services/api.service";
+import { updateUserAPI } from "../../services/api.service";
 const UpdateUserModal = (props) => {
   const [id, setId] = useState("");
   const [fullName, setFullName] = useState("");
@@ -20,6 +20,7 @@ const UpdateUserModal = (props) => {
       setDataUpdate(null);
     }
   }, [dataUpdate]);
+
   const handleSubmitBtn = async () => {
     const res = await updateUserAPI(id, fullName, phone);
     if (res.data) {
@@ -42,7 +43,7 @@ const UpdateUserModal = (props) => {
     setFullName("");
     setPhone("");
   };
-  console.log("check", dataUpdate);
+  // console.log("check", dataUpdate);
   return (
     <Modal
       title="Update User"
