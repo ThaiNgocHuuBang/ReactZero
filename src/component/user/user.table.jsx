@@ -1,4 +1,4 @@
-import { Table, Popconfirm, Button, message, notification } from "antd";
+import { Table, Popconfirm, message, notification } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import UpdateUserModal from "./update.user.modal";
 import { useState } from "react";

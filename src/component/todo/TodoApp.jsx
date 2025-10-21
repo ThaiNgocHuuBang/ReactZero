@@ -2,7 +2,7 @@ import "./todo.css";
 import TodoData from "./TodoData";
 import TodoNew from "./TodoNew";
 import todoLogo from "../../assets/react.svg";
-import { use, useState } from "react";
+import { useState } from "react";
 
 const TodoApp = () => {
   const [todoList, setTodoList] = useState([

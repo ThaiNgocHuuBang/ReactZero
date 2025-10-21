@@ -1,5 +1,4 @@
-import { Button, Drawer, Flex } from "antd";
-import { useState } from "react";
+import { Drawer } from "antd";
 
 const ViewUserDetail = (props) => {
   const { isDetailUserOpen, setIsDetailUserOpen, dataDetail, setDataDetail } =
