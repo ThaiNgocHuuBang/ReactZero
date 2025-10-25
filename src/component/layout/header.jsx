@@ -6,8 +6,9 @@ import {
   BookOutlined,
   SettingOutlined,
   LoginOutlined,
+  AliwangwangOutlined,
 } from "@ant-design/icons";
-import { useContext, useState } from "react";
+import { Children, useContext, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 const Header = () => {
   const [current, setCurrent] = useState("");
@@ -16,7 +17,7 @@ const Header = () => {
     setCurrent(e.key);
   };
   const { user } = useContext(AuthContext);
-  console.log("checkkkkk", user);
+  // console.log("checkkkkk", user);
   //  const data = useContext(AuthContext);
   // console.log("checkkkkk", data);
   const items = [
@@ -35,22 +36,25 @@ const Header = () => {
       key: "books",
       icon: <BookOutlined />,
     },
-    {
-      label: "Cài đặt",
-      key: "setting",
-      icon: <SettingOutlined />,
-      children: [
-        {
-          label: <Link to={"/login"}>Đăng nhập</Link>,
-          key: "login",
-          icon: <LoginOutlined />,
-        },
-        {
-          label: "Đăng xuất",
-          key: "logout",
-        },
-      ],
-    },
+    ...(!user.id
+      ? [
+          {
+            label: <Link to={"/login"}>Đăng nhập</Link>,
+            key: "login",
+            icon: <LoginOutlined />,
+          },
+        ]
+      : []),
+    ...(user.id
+      ? [
+          {
+            label: `Welcome ${user.fullName}`,
+            key: "setting",
+            icon: <AliwangwangOutlined></AliwangwangOutlined>,
+            children: [{ label: "Đăng xuất", key: "layout" }],
+          },
+        ]
+      : []),
   ];
 
   return (

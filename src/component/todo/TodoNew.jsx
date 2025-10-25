@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const TodoNew = (prpos) => {
-  console.log(prpos);
+  // console.log(prpos);
   const { addNewTodo } = prpos;
 
   // addNewTodo(`bang`);
