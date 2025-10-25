@@ -7,8 +7,18 @@ import {
   SettingOutlined,
   LoginOutlined,
 } from "@ant-design/icons";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/auth.context";
 const Header = () => {
+  const [current, setCurrent] = useState("");
+  const onClick = (e) => {
+    // console.log("click ", e);
+    setCurrent(e.key);
+  };
+  const { user } = useContext(AuthContext);
+  console.log("checkkkkk", user);
+  //  const data = useContext(AuthContext);
+  // console.log("checkkkkk", data);
   const items = [
     {
       label: <Link to={"/"}>Home</Link>,
@@ -42,11 +52,7 @@ const Header = () => {
       ],
     },
   ];
-  const [current, setCurrent] = useState("");
-  const onClick = (e) => {
-    console.log("click ", e);
-    setCurrent(e.key);
-  };
+
   return (
     <Menu
       onClick={onClick}
