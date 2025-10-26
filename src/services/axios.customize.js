@@ -18,6 +18,7 @@ instance.interceptors.request.use(
     ) {
       config.headers.Authorization =
         "Bearer " + window.localStorage.getItem("access_token");
+      // console.log("🔑 Token attached:", config.headers.Authorization);
     }
 
     // Do something before request is sent
