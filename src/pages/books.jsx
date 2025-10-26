@@ -15,9 +15,9 @@ const BookPage = () => {
 
   useEffect(() => {
     loadBook();
-    console.log("useEffect");
+    // console.log("useEffect");
   }, []);
-  console.log("render");
+  // console.log("render");
   return (
     <BookTable
       dataBook={dataBook}

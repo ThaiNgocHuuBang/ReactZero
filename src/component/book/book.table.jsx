@@ -1,5 +1,7 @@
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import ViewBookDetail from "./view.book.detail";
+import { useState } from "react";
 const BookTable = (props) => {
   const {
     dataBook,
@@ -10,25 +12,38 @@ const BookTable = (props) => {
     setPageSize,
     total,
   } = props;
-  //   console.log(current, pageSize, setCurrent, setPageSize, total);
+  const [isOpenDetailBook, setIsOpenDetailBook] = useState(false);
+  const [dataDetailBook, setDataDetailBook] = useState({});
 
+  //   console.log(current, pageSize, setCurrent, setPageSize, total);
+  // console.log(dataBook);
   const onChange = (pagination) => {
     // console.log("check", pagination);
     setCurrent(pagination.current);
     setPageSize(pagination.pageSize);
   };
+
   const columns = [
     {
-      title: "Index",
-      dataIndex: "index",
-      key: "index",
-      render: (text) => <span>1</span>,
+      title: "STT",
+      render: (_, record, index) => {
+        return <>{index + 1 + (current - 1) * pageSize}</>;
+      },
     },
     {
       title: "Id",
       dataIndex: "_id",
       key: "_id",
-      render: (text) => <a>{text}</a>,
+      render: (_, record) => (
+        <a
+          onClick={() => {
+            setIsOpenDetailBook(true);
+            setDataDetailBook(record);
+          }}
+        >
+          {record._id}
+        </a>
+      ),
     },
     {
       title: "Tiêu đề",
@@ -39,6 +54,13 @@ const BookTable = (props) => {
       title: "Giá tiền",
       dataIndex: "price",
       key: "price",
+      render: (text) => {
+        if (text)
+          return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+          }).format(text);
+      },
     },
     {
       title: "Số lượng",
@@ -86,6 +108,12 @@ const BookTable = (props) => {
         }}
         onChange={onChange}
       />
+      <ViewBookDetail
+        isOpenDetailBook={isOpenDetailBook}
+        setIsOpenDetailBook={setIsOpenDetailBook}
+        dataDetailBook={dataDetailBook}
+        setDataDetailBook={setIsOpenDetailBook}
+      ></ViewBookDetail>
     </>
   );
 };
