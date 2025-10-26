@@ -4,11 +4,10 @@ import {
   HomeOutlined,
   UserAddOutlined,
   BookOutlined,
-  SettingOutlined,
   LoginOutlined,
   AliwangwangOutlined,
 } from "@ant-design/icons";
-import { Children, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 const Header = () => {
   const [current, setCurrent] = useState("");
