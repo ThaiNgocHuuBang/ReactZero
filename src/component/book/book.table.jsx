@@ -21,8 +21,19 @@ const BookTable = (props) => {
   // console.log(dataBook);
   const onChange = (pagination) => {
     // console.log("check", pagination);
-    setCurrent(pagination.current);
-    setPageSize(pagination.pageSize);
+    // setCurrent(pagination.current);
+    // setPageSize(pagination.pageSize);
+    if (pagination && pagination.current) {
+      if (pagination.current !== current) {
+        setCurrent(+pagination.current); //"5" => 5
+      }
+    }
+    // Nếu thay đổi pageSize
+    if (pagination && pagination.pageSize) {
+      if (pagination.pageSize !== pageSize) {
+        setPageSize(+pagination.pageSize); //"5" => 5
+      }
+    }
   };
 
   const columns = [

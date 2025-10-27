@@ -9,14 +9,17 @@ const BookPage = () => {
   const [total, setTotal] = useState(0);
 
   const loadBook = async () => {
-    const res = await fetchAllBookAPI();
+    const res = await fetchAllBookAPI(current, pageSize);
     setDataBook(res.data.result);
+    setCurrent(res.data.meta.current);
+    setPageSize(res.data.meta.pageSize);
+    setTotal(res.data.meta.total);
   };
 
   useEffect(() => {
     loadBook();
     // console.log("useEffect");
-  }, []);
+  }, [current, pageSize]);
   // console.log("render");
   return (
     <BookTable
