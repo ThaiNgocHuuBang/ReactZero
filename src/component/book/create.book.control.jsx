@@ -39,8 +39,10 @@ const BookForm = (props) => {
   const handleSubmitBtn = async () => {
     // check ảnh
     if (!selectedFile) {
-      notification.error;
-      ({ message: "Error create book", description: "Vui lòng upload ảnh" });
+      notification.error({
+        message: "Error create book",
+        description: "Vui lòng upload ảnh",
+      });
       return;
     }
     // step 1 : upload ảnh

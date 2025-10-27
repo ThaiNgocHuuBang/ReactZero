@@ -2,7 +2,7 @@ import { Button, Table } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import ViewBookDetail from "./view.book.detail";
 import { useState } from "react";
-import BookForm from "./book.form";
+import BookForm from "./create.book.control";
 const BookTable = (props) => {
   const {
     dataBook,
@@ -112,6 +112,7 @@ const BookTable = (props) => {
         loadBook={loadBook}
       ></BookForm>
       <Table
+        rowKey={"_id"}
         columns={columns}
         dataSource={dataBook}
         pagination={{
