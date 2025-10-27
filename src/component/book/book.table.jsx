@@ -3,6 +3,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import ViewBookDetail from "./view.book.detail";
 import { useState } from "react";
 import BookForm from "./create.book.control";
+import BookFormUnControl from "./create.book.uncontrol";
 const BookTable = (props) => {
   const {
     dataBook,
@@ -15,6 +16,8 @@ const BookTable = (props) => {
     loadBook,
   } = props;
   const [isOpenDetailBook, setIsOpenDetailBook] = useState(false);
+  const [isOpenDetailBookUnControl, setIsModalFormCreateOpenUnControl] =
+    useState(false);
   const [dataDetailBook, setDataDetailBook] = useState({});
   const [isModalFormCreateOpen, setIsModalFormCreateOpen] = useState(false);
   //   console.log(current, pageSize, setCurrent, setPageSize, total);
@@ -103,14 +106,28 @@ const BookTable = (props) => {
   ];
   return (
     <>
-      <Button type="primary" onClick={() => setIsModalFormCreateOpen(true)}>
-        Create Book
+      <Button
+        type="primary"
+        onClick={() => setIsModalFormCreateOpen(true)}
+        style={{ marginRight: 20, marginTop: 20 }}
+      >
+        Create Book Control
+      </Button>
+      <Button
+        type="primary"
+        onClick={() => setIsModalFormCreateOpenUnControl(true)}
+      >
+        Create Book UnControl
       </Button>
       <BookForm
         isModalFormCreateOpen={isModalFormCreateOpen}
         setIsModalFormCreateOpen={setIsModalFormCreateOpen}
         loadBook={loadBook}
       ></BookForm>
+      <BookFormUnControl
+        isOpenDetailBookUnControl={isOpenDetailBookUnControl}
+        setIsModalFormCreateOpenUnControl={setIsModalFormCreateOpenUnControl}
+      ></BookFormUnControl>
       <Table
         rowKey={"_id"}
         columns={columns}

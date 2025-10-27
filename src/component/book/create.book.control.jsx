@@ -84,7 +84,7 @@ const BookForm = (props) => {
   return (
     <>
       <Modal
-        title="Create Book"
+        title="Create Book Control"
         closable={{ "aria-label": "Custom Close Button" }}
         open={isModalFormCreateOpen}
         onOk={() => handleSubmitBtn()}
@@ -124,7 +124,6 @@ const BookForm = (props) => {
             min={1}
             max={10}
             style={{ width: "100%" }}
-            addonAfter="đ"
           />{" "}
         </div>
         <div style={{ marginBottom: 10 }}>
