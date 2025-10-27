@@ -10,7 +10,7 @@ const App = () => {
   const { setUser, isAppLoading, setIsAppLoading } = useContext(AuthContext);
   useEffect(() => {
     fetchUserInfo();
-  });
+  }, []);
   const fetchUserInfo = async () => {
     const res = await getAccountAPI();
     if (res.data) {
