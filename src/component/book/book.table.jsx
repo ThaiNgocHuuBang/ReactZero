@@ -1,10 +1,11 @@
-import { Button, Table } from "antd";
+import { Button, Table, Popconfirm, message, notification } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import ViewBookDetail from "./view.book.detail";
 import { useState } from "react";
 import BookForm from "./create.book.control";
 import BookFormUnControl from "./create.book.uncontrol";
 import UpdateBook from "./update.book";
+import { deleteBookAPI } from "../../services/api.service";
 const BookTable = (props) => {
   const {
     dataBook,
@@ -25,6 +26,27 @@ const BookTable = (props) => {
   const [isModalFormCreateOpen, setIsModalFormCreateOpen] = useState(false);
   //   console.log(current, pageSize, setCurrent, setPageSize, total);
   // console.log(dataBook);
+
+  // delete book
+  const confirmDeleteBook = async (id) => {
+    const res = await deleteBookAPI(id);
+    if (res.data) {
+      notification.success({
+        message: "Delete user",
+        description: "Xóa thành công",
+      });
+      await loadBook();
+    } else {
+      notification.error({
+        message: "Xóa thất bại",
+        description: JSON.stringify(res.message),
+      });
+    }
+  };
+  const cancel = (e) => {
+    console.log(e);
+    message.error("Click on No");
+  };
   const onChange = (pagination) => {
     // console.log("check", pagination);
     // setCurrent(pagination.current);
@@ -103,9 +125,19 @@ const BookTable = (props) => {
             }}
             style={{ cursor: "pointer", color: "orange", fontSize: 20 }}
           ></EditOutlined>
-          <DeleteOutlined
-            style={{ cursor: "pointer", color: "red", fontSize: 20 }}
-          ></DeleteOutlined>
+
+          <Popconfirm
+            title="Delete the book"
+            description="Are you sure to delete this task?"
+            onConfirm={() => confirmDeleteBook(record._id)}
+            onCancel={cancel}
+            okText="Yes"
+            cancelText="No"
+          >
+            <DeleteOutlined
+              style={{ cursor: "pointer", color: "red", fontSize: 20 }}
+            ></DeleteOutlined>
+          </Popconfirm>
         </div>
       ),
     },
