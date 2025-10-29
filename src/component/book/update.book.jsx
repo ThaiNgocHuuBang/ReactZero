@@ -1,24 +1,36 @@
-import {
-  Input,
-  Modal,
-  InputNumber,
-  Select,
-  notification,
-  Form,
-  Button,
-  Checkbox,
-} from "antd";
-import { useState } from "react";
-import { createBookAPI, handleUploadFile } from "../../services/api.service";
-const BookFormUnControl = (props) => {
+import { Input, Modal, InputNumber, Select, notification, Form } from "antd";
+import { useState, useEffect } from "react";
+import { updateBookAPI, handleUploadFile } from "../../services/api.service";
+const UpdateBook = (props) => {
   const {
-    isOpenDetailBookUnControl,
-    setIsModalFormCreateOpenUnControl,
+    isOpenUpdateBook,
+    setIsOpenUpdateBook,
+    dataUpdateBook,
+    setDataUpdateBook,
     loadBook,
   } = props;
   const [form] = Form.useForm();
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
+
+  useEffect(() => {
+    if (dataUpdateBook && dataUpdateBook._id) {
+      form.setFieldsValue({
+        mainText: dataUpdateBook.mainText,
+        author: dataUpdateBook.author,
+        price: dataUpdateBook.price,
+        quantity: dataUpdateBook.quantity,
+        category: dataUpdateBook.category,
+      });
+      //   console.log(typeof (dataUpdateBook.price, dataUpdateBook.quantity));
+      setPreview(
+        `${import.meta.env.VITE_BACKEND_URL}/images/book/${
+          dataUpdateBook.thumbnail
+        }`
+      );
+    }
+  }, [dataUpdateBook]);
+
   const onFinish = (values) => {
     handleBtnSubmit(values);
   };
@@ -26,10 +38,10 @@ const BookFormUnControl = (props) => {
     console.log("Failed:", errorInfo);
   };
   const resetAndCloseModal = () => {
-    setIsModalFormCreateOpenUnControl(false);
-    form.resetFields();
-    setSelectedFile(null);
-    setPreview(null);
+    setIsOpenUpdateBook(false);
+    // form.resetFields();
+    // setSelectedFile(null);
+    // setPreview(null);
   };
   const handleOnChangeFile = (event) => {
     if (!event.target.files || event.target.files.length === 0) {
@@ -46,22 +58,22 @@ const BookFormUnControl = (props) => {
     }
   };
   const handleBtnSubmit = async (values) => {
-    // check ảnh
-    if (!selectedFile) {
+    //không có ảnh preview + không có file => return
+    if (!selectedFile && !preview) {
       notification.error({
         message: "Error create book",
         description: "Vui lòng upload ảnh",
       });
       return;
     }
-    // step 1 : upload ảnh
-    const resUploadImg = await handleUploadFile(selectedFile, "book");
-    if (resUploadImg.data) {
-      //success
-      const newThumBnail = resUploadImg.data.fileUploaded;
+    //có ảnh preview và không có file => không upload file
+    if (preview && !selectedFile) {
       const { mainText, author, price, quantity, category } = values;
-      //   create book
-      const res = await createBookAPI(
+      console.log("check quantity", quantity, typeof quantity);
+      console.log("check values", values);
+      const newThumBnail = preview;
+      const res = await updateBookAPI(
+        dataUpdateBook._id,
         newThumBnail,
         mainText,
         author,
@@ -69,25 +81,57 @@ const BookFormUnControl = (props) => {
         quantity,
         category
       );
+      console.log("check", res);
       if (res.data) {
         resetAndCloseModal();
-        await loadBook();
+        // await loadBook();
         notification.success({
-          message: "Create book successfully",
-          description: "Tạo sách thành công",
+          message: "Update book successfully",
+          description: "Cập nhật sách thành công",
         });
-        setIsModalFormCreateOpenUnControl(false);
       } else {
+        console.log("lỗi");
         notification.error({
-          message: "Create book failed",
+          message: "Update book failed",
           description: JSON.stringify(res.message),
         });
       }
     } else {
-      notification.error({
-        message: "Create book failed",
-        description: JSON.stringify(resUploadImg.message),
-      });
+      // step 1 : upload ảnh
+      const resUploadImg = await handleUploadFile(selectedFile, "book");
+      if (resUploadImg.data) {
+        //success
+        const newThumBnail = resUploadImg.data.fileUploaded;
+        const { mainText, author, price, quantity, category } = values;
+        //   create book
+        const res = await updateBookAPI(
+          dataUpdateBook._id,
+          newThumBnail,
+          mainText,
+          author,
+          price,
+          quantity,
+          category
+        );
+        if (res.data) {
+          resetAndCloseModal();
+          await loadBook();
+          notification.success({
+            message: "Update book successfully",
+            description: "Cập nhật sách thành công",
+          });
+        } else {
+          notification.error({
+            message: "Update book failed",
+            description: JSON.stringify(res.message),
+          });
+        }
+      } else {
+        notification.error({
+          message: "Update book failed",
+          description: JSON.stringify(resUploadImg.message),
+        });
+      }
     }
   };
   return (
@@ -95,7 +139,7 @@ const BookFormUnControl = (props) => {
       <Modal
         title="Create Book Control"
         closable={{ "aria-label": "Custom Close Button" }}
-        open={isOpenDetailBookUnControl}
+        open={isOpenUpdateBook}
         onOk={() => form.submit()}
         onCancel={() => resetAndCloseModal()}
         maskClosable={false}
@@ -103,9 +147,6 @@ const BookFormUnControl = (props) => {
         <Form
           form={form}
           name="basic"
-          //   labelCol={{ span: 8 }}
-          //   wrapperCol={{ span: 16 }}
-          //   style={{ maxWidth: 600 }}
           initialValues={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
@@ -132,7 +173,7 @@ const BookFormUnControl = (props) => {
           >
             <InputNumber
               min={1}
-              max={10}
+              max={100000}
               style={{ width: "100%" }}
               addonAfter="đ"
             />
@@ -142,7 +183,7 @@ const BookFormUnControl = (props) => {
             name="quantity"
             rules={[{ required: true, message: "Please input your quantity!" }]}
           >
-            <InputNumber min={1} max={10} style={{ width: "100%" }} />
+            <InputNumber min={1} max={1000} style={{ width: "100%" }} />
           </Form.Item>
           <Form.Item
             label="Thể loại"
@@ -206,4 +247,4 @@ const BookFormUnControl = (props) => {
     </>
   );
 };
-export default BookFormUnControl;
+export default UpdateBook;

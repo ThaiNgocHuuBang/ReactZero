@@ -4,6 +4,7 @@ import ViewBookDetail from "./view.book.detail";
 import { useState } from "react";
 import BookForm from "./create.book.control";
 import BookFormUnControl from "./create.book.uncontrol";
+import UpdateBook from "./update.book";
 const BookTable = (props) => {
   const {
     dataBook,
@@ -16,6 +17,8 @@ const BookTable = (props) => {
     loadBook,
   } = props;
   const [isOpenDetailBook, setIsOpenDetailBook] = useState(false);
+  const [isOpenUpdateBook, setIsOpenUpdateBook] = useState(false);
+  const [dataUpdateBook, setDataUpdateBook] = useState({});
   const [isOpenDetailBookUnControl, setIsModalFormCreateOpenUnControl] =
     useState(false);
   const [dataDetailBook, setDataDetailBook] = useState({});
@@ -95,6 +98,9 @@ const BookTable = (props) => {
       render: (_, record) => (
         <div style={{ display: "flex", gap: 20 }}>
           <EditOutlined
+            onClick={() => {
+              setIsOpenUpdateBook(true), setDataUpdateBook(record);
+            }}
             style={{ cursor: "pointer", color: "orange", fontSize: 20 }}
           ></EditOutlined>
           <DeleteOutlined
@@ -127,6 +133,7 @@ const BookTable = (props) => {
       <BookFormUnControl
         isOpenDetailBookUnControl={isOpenDetailBookUnControl}
         setIsModalFormCreateOpenUnControl={setIsModalFormCreateOpenUnControl}
+        loadBook={loadBook}
       ></BookFormUnControl>
       <Table
         rowKey={"_id"}
@@ -153,6 +160,13 @@ const BookTable = (props) => {
         dataDetailBook={dataDetailBook}
         setDataDetailBook={setIsOpenDetailBook}
       ></ViewBookDetail>
+      <UpdateBook
+        isOpenUpdateBook={isOpenUpdateBook}
+        setIsOpenUpdateBook={setIsOpenUpdateBook}
+        dataUpdateBook={dataUpdateBook}
+        setDataUpdateBook={setDataUpdateBook}
+        loadBook={loadBook}
+      ></UpdateBook>
     </>
   );
 };
