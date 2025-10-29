@@ -16,6 +16,7 @@ const BookTable = (props) => {
     setPageSize,
     total,
     loadBook,
+    loadingTable,
   } = props;
   const [isOpenDetailBook, setIsOpenDetailBook] = useState(false);
   const [isOpenUpdateBook, setIsOpenUpdateBook] = useState(false);
@@ -26,6 +27,7 @@ const BookTable = (props) => {
   const [isModalFormCreateOpen, setIsModalFormCreateOpen] = useState(false);
   //   console.log(current, pageSize, setCurrent, setPageSize, total);
   // console.log(dataBook);
+  //loading table
 
   // delete book
   const confirmDeleteBook = async (id) => {
@@ -176,6 +178,7 @@ const BookTable = (props) => {
           pageSize: pageSize,
           showSizeChanger: true,
           total: total,
+          loading: { loadingTable },
           showTotal: (total, range) => {
             return (
               <div>

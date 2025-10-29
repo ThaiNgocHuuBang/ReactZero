@@ -69,8 +69,6 @@ const UpdateBook = (props) => {
     //có ảnh preview và không có file => không upload file
     if (preview && !selectedFile) {
       const { mainText, author, price, quantity, category } = values;
-      console.log("check quantity", quantity, typeof quantity);
-      console.log("check values", values);
       const newThumBnail = preview;
       const res = await updateBookAPI(
         dataUpdateBook._id,
@@ -84,7 +82,7 @@ const UpdateBook = (props) => {
       console.log("check", res);
       if (res.data) {
         resetAndCloseModal();
-        // await loadBook();
+        await loadBook();
         notification.success({
           message: "Update book successfully",
           description: "Cập nhật sách thành công",
